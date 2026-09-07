@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#12040f">
+<title>Game Center</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="device">
+
+  <!-- ============ LOCKSCREEN ============ -->
+  <section id="lockscreen" class="screen" aria-label="Lockscreen">
+    <div class="wallpaper"></div>
+
+    <div class="lock-clock">
+      <div id="lock-time" class="lock-time">0:00</div>
+    </div>
+
+    <div class="swipe-hint" aria-hidden="true">
+      <div class="chevron"></div>
+    </div>
+
+    <div class="home-indicator" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ PASSCODE ============ -->
+  <section id="passcode" class="screen" aria-label="Passcode eingeben">
+    <div class="wallpaper wallpaper--blur"></div>
+
+    <div class="pass-wrap">
+      <div class="pass-title">Enter Passcode</div>
+
+      <div id="dots" class="dots" role="status" aria-label="Passcode Fortschritt">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+
+      <div class="keypad">
+        <button class="key" data-digit="1"><span class="num">1</span><span class="alpha">&nbsp;</span></button>
+        <button class="key" data-digit="2"><span class="num">2</span><span class="alpha">ABC</span></button>
+        <button class="key" data-digit="3"><span class="num">3</span><span class="alpha">DEF</span></button>
+        <button class="key" data-digit="4"><span class="num">4</span><span class="alpha">GHI</span></button>
+        <button class="key" data-digit="5"><span class="num">5</span><span class="alpha">JKL</span></button>
+        <button class="key" data-digit="6"><span class="num">6</span><span class="alpha">MNO</span></button>
+        <button class="key" data-digit="7"><span class="num">7</span><span class="alpha">PQRS</span></button>
+        <button class="key" data-digit="8"><span class="num">8</span><span class="alpha">TUV</span></button>
+        <button class="key" data-digit="9"><span class="num">9</span><span class="alpha">WXYZ</span></button>
+        <div class="key-spacer"></div>
+        <button class="key" data-digit="0"><span class="num">0</span><span class="alpha">&nbsp;</span></button>
+        <button id="cancel" class="cancel">Cancel</button>
+      </div>
+    </div>
+
+    <div class="home-indicator" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ HOMESCREEN (Platzhalter) ============ -->
+  <section id="home" class="screen" aria-label="Homescreen">
+    <div class="wallpaper wallpaper--home"></div>
+    <div class="home-placeholder">
+      <div class="home-grid">
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+        <div class="app"><div class="app-icon"></div></div>
+      </div>
+    </div>
+    <div class="home-indicator" aria-hidden="true"></div>
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

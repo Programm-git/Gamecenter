@@ -1,0 +1,309 @@
+/* ============================================================
+   Apple-style Lockscreen / Passcode  —  optimiert für iPad
+   ============================================================ */
+
+:root{
+  --key-size: clamp(62px, 9.6vh, 88px);
+  --key-gap:  clamp(14px, 2.2vh, 26px);
+  --dot-size: clamp(11px, 1.55vh, 15px);
+  --ease: cubic-bezier(.32, .72, 0, 1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+html, body{
+  height:100%;
+  overflow:hidden;
+  background:#000;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  -webkit-touch-callout:none;
+  user-select:none;
+  overscroll-behavior:none;
+  touch-action:none;
+  font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+              "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#device{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+}
+
+/* ---------- Screens ---------- */
+.screen{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  will-change:transform, opacity;
+}
+
+/* ---------- Wallpaper: kühler Farbverlauf ---------- */
+.wallpaper{
+  position:absolute;
+  inset:-10%;
+  background:
+    radial-gradient(120% 85% at 18% 118%, #ff53c8 0%, rgba(255,83,200,0) 58%),
+    radial-gradient(110% 80% at 88% 112%, #2f9dff 0%, rgba(47,157,255,0) 55%),
+    radial-gradient(130% 95% at 62% 96%,  #8a3bd6 0%, rgba(138,59,214,0) 62%),
+    radial-gradient(150% 110% at 50% 8%,  #1b0b2a 0%, #0b0512 70%),
+    linear-gradient(180deg, #12071d 0%, #23103a 42%, #6a259c 72%, #b53ba0 100%);
+  background-color:#0b0512;
+}
+
+.wallpaper--blur{
+  filter:blur(60px) saturate(1.15) brightness(.62);
+  transform:scale(1.15);
+}
+
+.wallpaper--home{
+  filter:saturate(1.05) brightness(.9);
+}
+
+/* ============================================================
+   LOCKSCREEN
+   ============================================================ */
+#lockscreen{
+  z-index:30;
+  transition:transform .55s var(--ease), opacity .45s var(--ease);
+}
+#lockscreen.is-dragging{ transition:none; }
+#lockscreen.is-hidden{
+  transform:translate3d(0, -100%, 0);
+  opacity:0;
+  pointer-events:none;
+}
+
+.lock-clock{
+  position:absolute;
+  top:clamp(56px, 12vh, 130px);
+  left:0; right:0;
+  text-align:center;
+  padding:0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+}
+
+.lock-time{
+  font-size:clamp(84px, 20vh, 190px);
+  line-height:.95;
+  font-weight:500;
+  letter-spacing:-.02em;
+  color:#fff;
+  font-variant-numeric:tabular-nums;
+  text-shadow:0 2px 40px rgba(0,0,0,.28);
+}
+
+/* Swipe-Hinweis */
+.swipe-hint{
+  position:absolute;
+  left:0; right:0;
+  bottom:clamp(52px, 8vh, 92px);
+  display:flex;
+  justify-content:center;
+  animation:hintFloat 2.4s ease-in-out infinite;
+}
+.chevron{
+  width:34px; height:34px;
+  border-left:3px solid rgba(255,255,255,.65);
+  border-top:3px solid rgba(255,255,255,.65);
+  border-radius:4px;
+  transform:rotate(45deg);
+}
+@keyframes hintFloat{
+  0%,100%{ transform:translateY(6px);  opacity:.45; }
+  50%    { transform:translateY(-6px); opacity:.95; }
+}
+
+/* ============================================================
+   PASSCODE
+   ============================================================ */
+#passcode{
+  z-index:20;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease);
+}
+#passcode.is-active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.pass-wrap{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:0;
+  padding:env(safe-area-inset-top) env(safe-area-inset-right)
+          env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.pass-title{
+  color:#fff;
+  font-size:clamp(15px, 2.2vh, 20px);
+  font-weight:400;
+  letter-spacing:.01em;
+  text-shadow:0 1px 12px rgba(0,0,0,.35);
+  margin-bottom:clamp(14px, 2.2vh, 24px);
+}
+
+/* ---------- Punkte ---------- */
+.dots{
+  display:flex;
+  gap:clamp(24px, 3.6vh, 38px);
+  margin-bottom:clamp(38px, 7vh, 80px);
+}
+.dot{
+  width:var(--dot-size);
+  height:var(--dot-size);
+  border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.92);
+  background:transparent;
+  transition:background-color .16s ease, transform .16s ease;
+}
+.dot.filled{
+  background:#fff;
+  transform:scale(1.04);
+}
+
+.dots.shake{ animation:shake .45s cubic-bezier(.36,.07,.19,.97); }
+@keyframes shake{
+  10%,90%{ transform:translateX(-8px); }
+  20%,80%{ transform:translateX(9px); }
+  30%,50%,70%{ transform:translateX(-13px); }
+  40%,60%{ transform:translateX(13px); }
+}
+
+/* ---------- Keypad ---------- */
+.keypad{
+  display:grid;
+  grid-template-columns:repeat(3, var(--key-size));
+  gap:var(--key-gap) var(--key-gap);
+  justify-items:center;
+  align-items:center;
+}
+
+.key{
+  width:var(--key-size);
+  height:var(--key-size);
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1px;
+  color:#fff;
+  font-family:inherit;
+  background:rgba(255,255,255,.18);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+  box-shadow:inset 0 0 0 .5px rgba(255,255,255,.14);
+  transition:background-color .12s ease;
+}
+.key:active,
+.key.pressed{ background:rgba(255,255,255,.42); }
+
+.num{
+  font-size:calc(var(--key-size) * .42);
+  font-weight:400;
+  line-height:1;
+  letter-spacing:0;
+}
+.alpha{
+  font-size:calc(var(--key-size) * .125);
+  font-weight:600;
+  letter-spacing:.14em;
+  line-height:1;
+  text-indent:.14em;
+  opacity:.95;
+}
+
+.key-spacer{
+  width:var(--key-size);
+  height:var(--key-size);
+}
+
+.cancel{
+  width:var(--key-size);
+  height:var(--key-size);
+  border:none;
+  background:transparent;
+  color:#fff;
+  font-family:inherit;
+  font-size:clamp(15px, 2.1vh, 19px);
+  font-weight:400;
+  cursor:pointer;
+  border-radius:50%;
+  transition:opacity .12s ease;
+}
+.cancel:active{ opacity:.45; }
+
+/* ============================================================
+   HOMESCREEN (Platzhalter)
+   ============================================================ */
+#home{
+  z-index:10;
+  opacity:0;
+  transform:scale(1.12);
+  pointer-events:none;
+  transition:opacity .45s var(--ease), transform .55s var(--ease);
+}
+#home.is-active{
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+}
+
+.home-placeholder{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:6vh 6vw;
+}
+.home-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:clamp(26px, 5vh, 58px) clamp(34px, 6vw, 78px);
+}
+.app-icon{
+  width:clamp(66px, 11vh, 108px);
+  height:clamp(66px, 11vh, 108px);
+  border-radius:24%;
+  background:rgba(255,255,255,.16);
+  box-shadow:inset 0 0 0 .5px rgba(255,255,255,.2),
+             0 10px 30px rgba(0,0,0,.22);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+}
+
+/* ---------- Home Indicator ---------- */
+.home-indicator{
+  position:absolute;
+  left:50%;
+  bottom:max(9px, env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  width:clamp(140px, 22vw, 210px);
+  height:5px;
+  border-radius:3px;
+  background:rgba(255,255,255,.85);
+  z-index:5;
+}
+
+/* ---------- Portrait-Feinschliff ---------- */
+@media (orientation:portrait){
+  :root{
+    --key-size: clamp(64px, 11.5vw, 92px);
+    --key-gap:  clamp(16px, 3.4vw, 30px);
+  }
+  .lock-time{ font-size:clamp(80px, 17vw, 170px); }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .swipe-hint{ animation:none; }
+}
