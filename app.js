@@ -22,9 +22,9 @@
   var state   = 'lock';  // 'lock' | 'pass' | 'home'
 
   /* ---------- Live-Uhr ---------- */
-  var DAYS   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var DAYS   = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+  var MONTHS = ['Jan', 'Feb', 'M\u00e4rz', 'Apr', 'Mai', 'Juni',
+                'Juli', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'];
 
   function renderClock() {
     var now = new Date();
@@ -34,8 +34,8 @@
 
     lockTime.textContent   = time;
     statusTime.textContent = time;
-    statusDate.textContent = DAYS[now.getDay()] + ' ' +
-                             MONTHS[now.getMonth()] + ' ' + now.getDate();
+    statusDate.textContent = DAYS[now.getDay()] + ' ' + now.getDate() + '. ' +
+                             MONTHS[now.getMonth()];
   }
   renderClock();
   setInterval(renderClock, 1000);

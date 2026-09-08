@@ -11,7 +11,7 @@ Sie dient als Hülle für die spätere Spiele-Sammlung.
    Jede gedrückte Ziffer füllt den nächsten Punkt weiß.
    `Cancel` löscht die zuletzt eingegebene Ziffer; bei leerer Eingabe geht es
    zurück zum Lockscreen.
-3. **Homescreen** – Statusleiste oben (Live-Uhrzeit und Datum links, WLAN,
+3. **Homescreen** – Statusleiste oben (Live-Uhrzeit und deutsches Datum links, WLAN,
    100 % und Akku rechts) und das leere Dock unten. Kein eigener Hintergrund,
    keine Apps, keine Widgets – die Fläche dazwischen bleibt frei für die Spiele.
 
