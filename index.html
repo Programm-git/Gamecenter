@@ -59,21 +59,34 @@
     <div class="home-indicator" aria-hidden="true"></div>
   </section>
 
-  <!-- ============ HOMESCREEN (Platzhalter) ============ -->
+  <!-- ============ HOMESCREEN ============ -->
   <section id="home" class="screen" aria-label="Homescreen">
     <div class="wallpaper wallpaper--home"></div>
-    <div class="home-placeholder">
-      <div class="home-grid">
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
-        <div class="app"><div class="app-icon"></div></div>
+
+    <div class="status-bar">
+      <div class="status-left">
+        <span id="status-time">0:00</span>
+        <span id="status-date">Mon Jan 1</span>
+      </div>
+
+      <div class="status-right">
+        <svg class="icon-wifi" viewBox="0 0 20 15" aria-hidden="true">
+          <path d="M10 13.4 7.3 10.5a3.9 3.9 0 0 1 5.4 0L10 13.4Z"/>
+          <path d="M14.2 8.9a6.2 6.2 0 0 0-8.4 0L4.3 7.3a8.4 8.4 0 0 1 11.4 0l-1.5 1.6Z"/>
+          <path d="M17.2 5.7a10.6 10.6 0 0 0-14.4 0L1.3 4.1a12.8 12.8 0 0 1 17.4 0l-1.5 1.6Z"/>
+        </svg>
+
+        <span class="battery-percent">100%</span>
+
+        <span class="battery" aria-hidden="true">
+          <span class="battery-shell"><span class="battery-fill"></span></span>
+          <span class="battery-cap"></span>
+        </span>
       </div>
     </div>
+
+    <div class="dock" aria-hidden="true"></div>
+
     <div class="home-indicator" aria-hidden="true"></div>
   </section>
 

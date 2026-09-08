@@ -11,6 +11,8 @@
   var passcode   = document.getElementById('passcode');
   var home       = document.getElementById('home');
   var lockTime   = document.getElementById('lock-time');
+  var statusTime = document.getElementById('status-time');
+  var statusDate = document.getElementById('status-date');
   var dotsEl     = document.getElementById('dots');
   var dots       = Array.prototype.slice.call(dotsEl.querySelectorAll('.dot'));
   var cancelBtn  = document.getElementById('cancel');
@@ -20,11 +22,20 @@
   var state   = 'lock';  // 'lock' | 'pass' | 'home'
 
   /* ---------- Live-Uhr ---------- */
+  var DAYS   = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
   function renderClock() {
     var now = new Date();
     var h = now.getHours();
     var m = now.getMinutes();
-    lockTime.textContent = h + ':' + (m < 10 ? '0' + m : m);
+    var time = h + ':' + (m < 10 ? '0' + m : m);
+
+    lockTime.textContent   = time;
+    statusTime.textContent = time;
+    statusDate.textContent = DAYS[now.getDay()] + ' ' +
+                             MONTHS[now.getMonth()] + ' ' + now.getDate();
   }
   renderClock();
   setInterval(renderClock, 1000);
